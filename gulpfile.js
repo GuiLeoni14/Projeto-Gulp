@@ -12,7 +12,8 @@ function compileSass() {
         overrideBrowserslist: ['last 2 versions'],
         cascade: false,
     }))
-    .pipe(gulp.dest('./src/css/'));
+    .pipe(gulp.dest('./src/css/'))
+    .pipe(browserSync.stream()); // injeta o css na página sem precisar dar refresh
 }
 
 gulp.task('default', compileSass); // gulp.task('sass', compileSass);
@@ -29,6 +30,7 @@ gulp.task('browser-sync', browser);
 
 function watch() {
     gulp.watch('./src/scss/*.scss', compileSass); // gulp.series'ou parallel'('sass', 'outra-tarefa');
+    gulp.watch('*.html').on('change', browserSync.reload); // browserSync.reload atualiza á pagina inteira
 };
-
-gulp.task('default', watch);
+gulp.task('watch', watch);
+gulp.task('default', gulp.parallel('watch', 'browser-sync'));
