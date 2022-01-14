@@ -3,6 +3,7 @@ const sass =  require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
 const concat = require('gulp-concat');
+const babel = require('gulp-babel');
 
 // compila os arquivos sass para a pasta 'css/main.css'
 function compileSass() {
@@ -33,6 +34,9 @@ function browser() {
 function gulpJs(){
     return  gulp.src('./src/js/scripts/*.js')
     .pipe(concat('all.js'))
+    .pipe(babel({
+        presets: ['@babel/env'] // compila js para navegadores mais antigos
+    }))
     .pipe(gulp.dest('./src/js'))
 }
 
