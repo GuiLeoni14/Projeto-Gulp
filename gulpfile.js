@@ -4,6 +4,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
 const concat = require('gulp-concat');
 const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
 
 // compila os arquivos sass para a pasta 'css/main.css'
 function compileSass() {
@@ -37,7 +38,9 @@ function gulpJs(){
     .pipe(babel({
         presets: ['@babel/env'] // compila js para navegadores mais antigos
     }))
+    .pipe(uglify()) // mimifica os arquivos js
     .pipe(gulp.dest('./src/js'))
+    .pipe(browserSync.stream()); // injeta o js na página sem precisar dar refresh
 }
 
 gulp.task('allJs', gulpJs);
@@ -47,7 +50,6 @@ gulp.task('browser-sync', browser);
 function watch() {
     gulp.watch('./src/scss/*.scss', compileSass); // gulp.series'ou parallel'('sass', 'outra-tarefa');
     gulp.watch('*.html').on('change', browserSync.reload); // browserSync.reload atualiza á pagina inteira
-    gulp.watch('./src/js/all.js').on('change', browserSync.reload); // adicionado por min
     gulp.watch('./src/js/scripts/*.js', gulpJs);
 };
 gulp.task('watch', watch);

@@ -1,12 +1,1 @@
-"use strict";
-
-{
-  // concatenar os arquivos com {} para evitar conflito com nomes/functions iguais
-  console.log('buttons');
-}
-{
-  // concatenar os arquivos com {} para evitar conflito com nomes/functions iguais
-  console.log('modal.js teste akkakaka');
-  var number = 14;
-  console.log(number);
-}
+"use strict";console.log("buttons");var number=19;console.log(number),console.log("modal.js testando");var _number=14;console.log(_number);
